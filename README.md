@@ -18,6 +18,7 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 
 ## Project Status
 
+**Supported Types**
 * [x] Integer
 * [x] Unsigned Integer
 * [x] Hyper Integer
@@ -26,7 +27,6 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Enumeration
 * [x] Floating Point
 * [x] Double-Precision Floating-Point
-* [ ] Quadruple-Precision Floating-Point
 * [x] Fixed-Length Opaque Data
 * [x] Variable-Length Opaque Data
 * [x] String
@@ -38,6 +38,10 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Constant
 * [ ] Typedef
 * [ ] Optional-Data
+
+**Unsupported Types**
+* [x] Quadruple-Precision Floating-Point
+
 
 ## Support
 
