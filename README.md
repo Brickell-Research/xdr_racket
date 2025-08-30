@@ -1,5 +1,8 @@
 # xdr
 
+[![Racket Package](https://img.shields.io/badge/raco%20pkg%20install-XDR-blue.svg?logo=racket)](https://pkgd.racket-lang.org/pkgn/package/XDR)
+[![Unit Tests](https://github.com/robertDurst/xdr_racket/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/robertDurst/xdr_racket/actions/workflows/unit-tests.yml)
+
 > **⚠️ WARNING: This library is currently in development and is not yet ready for production use.**
 
 XDR encoding, decoding, and generation library for the Racket Programming Language.
