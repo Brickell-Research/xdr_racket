@@ -35,4 +35,3 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Constant
 * [ ] Typedef
 * [ ] Optional-Data
-* [ ] 
