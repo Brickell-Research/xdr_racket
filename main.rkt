@@ -1,13 +1,15 @@
-#lang racket/base
+#lang typed/racket
 
-(require racket/contract)
+(provide
+ ;; XDR Integer
+ xdr-int xdr-int? xdr-int-number xdr-decode-int xdr-encode-int)
 
-(provide (contract-out
-          [xdr-encode (-> string? bytes?)]
-          [xdr-decode (-> bytes? string?)]))
+(struct xdr-int ([number : Integer]) #:transparent)
 
-(define (xdr-encode str)
-  (string->bytes/utf-8 str))
+(: xdr-decode-int (-> Bytes xdr-int))
+(define (xdr-decode-int bstr)
+  (xdr-int (integer-bytes->integer bstr #t #t)))
 
-(define (xdr-decode str)
-  (bytes->string/utf-8 str))
+(: xdr-encode-int (-> xdr-int Bytes))
+(define (xdr-encode-int xdr-int)
+  (integer->integer-bytes (xdr-int-number xdr-int) 4 #t #t))
