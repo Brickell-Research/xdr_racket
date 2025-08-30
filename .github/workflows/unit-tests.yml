@@ -28,7 +28,7 @@ jobs:
       run: raco pkg install --auto --name xdr
     
     - name: Run tests
-      run: racket test.rkt
+      run: raco test .
     
     - name: Check package installation
       run: |
