@@ -2,8 +2,7 @@
 
 (define collection "xdr")
 (define deps '("base"))
-(define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
-(define scribblings '(("scribblings/xdr.scrbl" ())))
+(define build-deps '("rackunit-lib"))
 (define pkg-desc "XDR encoding, decoding, and generation library")
 (define version "0.0.1")
 (define pkg-authors '("Rob Durst"))
