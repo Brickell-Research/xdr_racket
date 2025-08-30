@@ -1,7 +1,7 @@
 #lang info
 
 (define collection "xdr")
-(define deps '("base" "typed-racket-lib"))
+(define deps '("base" "typed-racket-lib" "rackunit-lib"))
 (define build-deps
   '("racket-doc"
     "scribble-lib"
@@ -11,3 +11,4 @@
 (define version "0.0.1")
 (define pkg-authors '("Rob Durst"))
 (define license 'AGPL-3.0-or-later)
+(define scribblings '(("scribblings/xdr.scrbl" ())))
