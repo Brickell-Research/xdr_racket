@@ -19,6 +19,10 @@
 (define MAX_INT_BYTES #"\x7f\xff\xff\xff")
 (define MIN_INT_BYTES #"\x80\x00\x00\x00")
 
+;; Boolean Constants as XDR Booleans
+(define FALSE_XDR_BOOLEAN (xdr-boolean #f))
+(define TRUE_XDR_BOOLEAN (xdr-boolean #t))
+
 (define decode-tests
   (test-suite
    "XDR Decoding Tests"
@@ -33,7 +37,12 @@
                ;; max positive
                (check-equal? MAX_XDR_INT (xdr-decode-int MAX_INT_BYTES))
                ;; min negative
-               (check-equal? MIN_XDR_INT (xdr-decode-int MIN_INT_BYTES)))))
+               (check-equal? MIN_XDR_INT (xdr-decode-int MIN_INT_BYTES)))
+   (test-suite "Boolean Decoding Tests"
+               ;; base
+               (check-equal? FALSE_XDR_BOOLEAN (xdr-decode-boolean ZERO_INT_BYTES))
+               ;; true
+               (check-equal? TRUE_XDR_BOOLEAN (xdr-decode-boolean ONE_INT_BYTES)))))
 
 (define encode-tests
   (test-suite
@@ -49,7 +58,12 @@
                ;; max positive
                (check-equal? MAX_INT_BYTES (xdr-encode-int MAX_XDR_INT))
                ;; min negative
-               (check-equal? MIN_INT_BYTES (xdr-encode-int MIN_XDR_INT)))))
+               (check-equal? MIN_INT_BYTES (xdr-encode-int MIN_XDR_INT)))
+   (test-suite "Boolean Encoding Tests"
+               ;; base
+               (check-equal? ZERO_INT_BYTES (xdr-encode-boolean FALSE_XDR_BOOLEAN))
+               ;; true
+               (check-equal? ONE_INT_BYTES (xdr-encode-boolean TRUE_XDR_BOOLEAN)))))
 
 (define all-tests
   (test-suite
