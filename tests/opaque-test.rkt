@@ -57,3 +57,5 @@
                (check-exn exn:fail? (lambda () (xdr-decode-fixed-opaque #"\x42" 5))) ; insufficient bytes - assertion failure
                (check-exn exn:fail? (lambda () (xdr-encode-fixed-opaque (xdr-fixed-opaque #"\x42\x43" 1))))) ; length mismatch - assertion failure
    ))
+
+(run-tests opaque-tests)

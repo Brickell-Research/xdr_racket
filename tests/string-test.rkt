@@ -45,3 +45,6 @@
                (check-equal? THREE_CHAR_STRING_BYTES (xdr-encode-string THREE_CHAR_XDR_STRING))
                ;; weird ASCII chars
                (check-equal? WEIRD_ASCII_STRING_BYTES (xdr-encode-string WEIRD_ASCII_XDR_STRING)))))
+
+
+(run-tests string-tests)

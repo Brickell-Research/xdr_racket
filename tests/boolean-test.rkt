@@ -27,3 +27,5 @@
                (check-equal? ZERO_INT_BYTES (xdr-encode-boolean FALSE_XDR_BOOLEAN))
                ;; true
                (check-equal? ONE_INT_BYTES (xdr-encode-boolean TRUE_XDR_BOOLEAN)))))
+
+(run-tests boolean-tests)

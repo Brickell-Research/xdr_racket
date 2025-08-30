@@ -73,3 +73,5 @@
                (check-equal? ONE_UNSIGNED_INT_BYTES (xdr-encode-uint ONE_UNSIGNED_XDR_INT))
                ;; max positive
                (check-equal? MAX_UNSIGNED_INT_BYTES (xdr-encode-uint MAX_UNSIGNED_XDR_INT)))))
+
+(run-tests integer-tests)

@@ -73,3 +73,5 @@
                (check-equal? ONE_UNSIGNED_HYPER_BYTES (xdr-encode-uhyper ONE_UNSIGNED_XDR_HYPER))
                ;; max positive
                (check-equal? MAX_UNSIGNED_HYPER_BYTES (xdr-encode-uhyper MAX_UNSIGNED_XDR_HYPER)))))
+
+(run-tests hyper-tests)
