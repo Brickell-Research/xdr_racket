@@ -5,6 +5,15 @@
  xdr-boolean xdr-boolean? xdr-boolean-value xdr-decode-boolean xdr-encode-boolean)
 
 ;; XDR Boolean
+;  Booleans are important enough and occur frequently enough to warrant
+;  their own explicit type in the standard.  Booleans are declared as
+;  follows:
+;
+;        bool identifier;
+;
+;  This is equivalent to:
+;
+;        enum { FALSE = 0, TRUE = 1 } identifier;
 (struct xdr-boolean ([value : Boolean]) #:transparent)
 
 (: xdr-decode-boolean (-> Bytes xdr-boolean))
