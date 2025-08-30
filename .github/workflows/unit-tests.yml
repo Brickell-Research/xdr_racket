@@ -1,0 +1,36 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        # Support the past 5 versions
+        racket-version: ['8.14', '8.15', '8.16', '8.17', '8.18']
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Racket
+      uses: Bogdanp/setup-racket@v1.11
+      with:
+        architecture: 'x64'
+        distribution: 'full'
+        variant: 'CS'
+        version: ${{ matrix.racket-version }}
+    
+    - name: Install dependencies
+      run: raco pkg install --auto --name xdr
+    
+    - name: Run tests
+      run: racket test.rkt
+    
+    - name: Check package installation
+      run: |
+        raco pkg show xdr
+        racket -e "(require xdr) (displayln \"Package loads successfully\")"
