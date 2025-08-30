@@ -4,8 +4,6 @@
          rackunit/text-ui)
 (require "../xdr/string.rkt")
 
-(provide string-tests)
-
 ;; String Constants as XDR Strings
 (define EMPTY_XDR_STRING (xdr-string ""))
 (define SINGLE_A_XDR_STRING (xdr-string "A"))

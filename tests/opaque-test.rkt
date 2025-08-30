@@ -4,8 +4,6 @@
          rackunit/text-ui)
 (require "../xdr/opaque.rkt")
 
-(provide opaque-tests)
-
 ;; Variable-Length Opaque Constants as XDR Opaque Data
 (define EMPTY_XDR_OPAQUE (xdr-opaque #""))
 (define SINGLE_BYTE_XDR_OPAQUE (xdr-opaque #"\x42"))

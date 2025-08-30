@@ -4,8 +4,6 @@
          rackunit/text-ui)
 (require "../xdr/boolean.rkt")
 
-(provide boolean-tests)
-
 ;; Boolean Constants as XDR Booleans
 (define FALSE_XDR_BOOLEAN (xdr-boolean #f))
 (define TRUE_XDR_BOOLEAN (xdr-boolean #t))

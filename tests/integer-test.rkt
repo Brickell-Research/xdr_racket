@@ -4,8 +4,6 @@
          rackunit/text-ui)
 (require "../xdr/integer.rkt")
 
-(provide integer-tests)
-
 ;; Integer Constants as XDR Integers
 (define ZERO_XDR_INT (xdr-int 0))
 (define ONE_XDR_INT (xdr-int 1))
