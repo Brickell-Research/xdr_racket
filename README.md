@@ -25,7 +25,7 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Double-Precision Floating-Point
 * [ ] Quadruple-Precision Floating-Point
 * [ ] Fixed-Length Opaque Data
-* [ ] Variable-Length Opaque Data
+* [x] Variable-Length Opaque Data
 * [x] String
 * [ ] Fixed-Length Array
 * [ ] Variable-Length Array
