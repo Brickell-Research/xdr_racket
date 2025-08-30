@@ -1,74 +1,9 @@
 #lang typed/racket
 
-(provide
- ;; XDR Signed Integer
- xdr-int xdr-int? xdr-int-number xdr-decode-int xdr-encode-int
- ;; XDR Unsigned Integer
- xdr-uint xdr-uint? xdr-uint-number xdr-decode-uint xdr-encode-uint
- ;; XDR Hyper Integer
- xdr-hyper xdr-hyper? xdr-hyper-number xdr-decode-hyper xdr-encode-hyper
- ;; XDR Unsigned Hyper Integer
- xdr-uhyper xdr-uhyper? xdr-uhyper-number xdr-decode-uhyper xdr-encode-uhyper
- ;; XDR Boolean
- xdr-boolean xdr-boolean? xdr-boolean-value xdr-decode-boolean xdr-encode-boolean
- )
+(require "xdr/integer.rkt"
+         "xdr/hyper.rkt"
+         "xdr/boolean.rkt")
 
-
-;; XDR Signed Integer
-(struct xdr-int ([number : Integer]) #:transparent)
-
-(: xdr-decode-int (-> Bytes xdr-int))
-(define (xdr-decode-int bstr)
-  (xdr-int (integer-bytes->integer bstr #t #t)))
-
-(: xdr-encode-int (-> xdr-int Bytes))
-(define (xdr-encode-int xdr-int)
-  (integer->integer-bytes (xdr-int-number xdr-int) 4 #t #t))
-
-;; XDR Unsigned Integer
-(struct xdr-uint ([number : Integer]) #:transparent)
-
-(: xdr-decode-uint (-> Bytes xdr-uint))
-(define (xdr-decode-uint bstr)
-  (xdr-uint (integer-bytes->integer bstr #f #t)))
-
-(: xdr-encode-uint (-> xdr-uint Bytes))
-(define (xdr-encode-uint xdr-uint)
-  (integer->integer-bytes (xdr-uint-number xdr-uint) 4 #f #t))
-
-;; XDR Hyper Integer (64-bit signed)
-(struct xdr-hyper ([number : Integer]) #:transparent)
-
-(: xdr-decode-hyper (-> Bytes xdr-hyper))
-(define (xdr-decode-hyper bstr)
-  (xdr-hyper (integer-bytes->integer bstr #t #t)))
-
-(: xdr-encode-hyper (-> xdr-hyper Bytes))
-(define (xdr-encode-hyper xdr-hyper)
-  (integer->integer-bytes (xdr-hyper-number xdr-hyper) 8 #t #t))
-
-;; XDR Unsigned Hyper Integer (64-bit unsigned)
-(struct xdr-uhyper ([number : Integer]) #:transparent)
-
-(: xdr-decode-uhyper (-> Bytes xdr-uhyper))
-(define (xdr-decode-uhyper bstr)
-  (xdr-uhyper (integer-bytes->integer bstr #f #t)))
-
-(: xdr-encode-uhyper (-> xdr-uhyper Bytes))
-(define (xdr-encode-uhyper xdr-uhyper)
-  (integer->integer-bytes (xdr-uhyper-number xdr-uhyper) 8 #f #t))
-
-;; XDR Boolean
-(struct xdr-boolean ([value : Boolean]) #:transparent)
-
-(: xdr-decode-boolean (-> Bytes xdr-boolean))
-(define (xdr-decode-boolean bstr)
-  (xdr-boolean (equal? 1 (integer-bytes->integer bstr #f #t))))
-
-(: xdr-encode-boolean (-> xdr-boolean Bytes))
-(define (xdr-encode-boolean xdr-boolean)
-  (integer->integer-bytes
-   (cond
-     [(xdr-boolean-value xdr-boolean) 1]
-     [else 0])
-   4 #t #t))
+(provide (all-from-out "xdr/integer.rkt"
+                       "xdr/hyper.rkt"
+                       "xdr/boolean.rkt"))
