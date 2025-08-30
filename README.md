@@ -24,8 +24,8 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [x] Unsigned Hyper Integer
 * [x] Boolean
 * [ ] Enumeration
-* [ ] Floating Point
-* [ ] Double-Precision Floating-Point
+* [x] Floating Point
+* [x] Double-Precision Floating-Point
 * [ ] Quadruple-Precision Floating-Point
 * [x] Fixed-Length Opaque Data
 * [x] Variable-Length Opaque Data
