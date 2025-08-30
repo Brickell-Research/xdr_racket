@@ -26,7 +26,7 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Quadruple-Precision Floating-Point
 * [ ] Fixed-Length Opaque Data
 * [ ] Variable-Length Opaque Data
-* [ ] String
+* [x] String
 * [ ] Fixed-Length Array
 * [ ] Variable-Length Array
 * [ ] Structure
@@ -35,3 +35,9 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Constant
 * [ ] Typedef
 * [ ] Optional-Data
+
+## Support
+
+If you find this library helpful, consider supporting my work:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/rdurst)
