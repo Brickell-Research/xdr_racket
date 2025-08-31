@@ -30,8 +30,8 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [x] Fixed-Length Opaque Data
 * [x] Variable-Length Opaque Data
 * [x] String
-* [ ] Fixed-Length Array
-* [ ] Variable-Length Array
+* [x] Fixed-Length Array (**partial**)
+* [x] Variable-Length Array (**partial**)
 * [ ] Structure
 * [ ] Discriminated Union
 * [x] Void

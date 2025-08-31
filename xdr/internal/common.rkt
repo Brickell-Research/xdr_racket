@@ -1,6 +1,6 @@
 #lang typed/racket
 
-(provide padding-bytes length-prefaced-bytes-format length-prefaced-bytes-deformat)
+(provide padding-bytes length-prefaced-bytes-format length-prefaced-bytes-deformat list-encode)
 
 (: padding-bytes (-> Integer Integer))
 (define (padding-bytes n)
@@ -18,3 +18,8 @@
 (define (length-prefaced-bytes-deformat bstr)
   (define length (integer-bytes->integer (subbytes bstr 0 4) #f #t))
   (subbytes bstr 4 (+ 4 length)))
+
+(: list-encode (All (A) (-> (Listof A) (-> A Bytes) Bytes)))
+(define (list-encode lst encode-fn)
+  (apply bytes-append (map encode-fn lst)))
+
