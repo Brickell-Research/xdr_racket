@@ -1,4 +1,7 @@
 #lang scribble/manual
+@require[scribble/eval
+         (for-label typed/racket/base
+                    xdr)]
 
 @title{XDR}
 @author[(author+email @elem{Rob Durst}
@@ -8,35 +11,39 @@
 
 This package provides a Racket implementation of the XDR (External Data Representation) protocol.
 
-@section{XDR Types}
+The process for leveraging XDR (@hyperlink["https://tools.ietf.org/html/rfc4506"]{RFC 4506}) is as follows:
 
-This implementation provides the following XDR data types as defined in RFC 4506:
+@itemlist[#:style 'ordered
+@item{
+  Define XDR configuration files. As an example, the @hyperlink["https://github.com/stellar/stellar-xdr"]{Stellar Blockchain network uses XDR to define the structure of its messages}. An XDR enum might look like:
+  @codeblock[#:line-numbers 0]{
+    enum { 
+      RED = 2,
+      YELLOW = 3,
+      BLUE = 5 
+    } colors;
+  }
+}
 
-@subsection{Integer Types}
-@itemlist[
-@item{@racket[xdr-int]: 32-bit signed integers in two's complement notation, range [-2147483648, 2147483647]}
-@item{@racket[xdr-uint]: 32-bit unsigned integers, range [0, 4294967295]}
-@item{@racket[xdr-hyper]: 64-bit signed integers in two's complement notation}
-@item{@racket[xdr-uhyper]: 64-bit unsigned integers, range [0, 18446744073709551615]}
-@item{@racket[xdr-boolean]: Boolean values encoded as 32-bit integers (0 for FALSE, 1 for TRUE)}
-@item{@racket[xdr-string]: Variable-length ASCII strings with length prefix and padding}
-@item{@racket[xdr-opaque]: Variable-length opaque data with length prefix and padding}
-@item{@racket[xdr-fixed-opaque]: Fixed-length opaque data with padding to 4-byte boundaries}
+@item{
+  Use the @racket[xdr-parse] function to parse the XDR configuration files and generate Racket code.
+  @racketblock[
+    (xdr-parse "path/to/xdr/file")
+    ;; This will generate Racket code in the current directory:
+    ;;  (struct xdr-enum-colors((RED . 2) (YELLOW . 3) (BLUE . 5)))
+  ]
+}
+@item{
+  Use the generated Racket code to encode and decode XDR data.
+  @racketblock[
+    (xdr-enum-colors RED)
+    (xdr-enum-colors 2)
+  ]
+}
 ]
 
-Each type includes encoding and decoding functions following the pattern @racket[xdr-encode-TYPE] and @racket[xdr-decode-TYPE].
 
-@section{License}
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+@include-section["xdr_types.scrbl"]
 
-This program is distributed in the hope that it will be useful,
-but @bold{without any waranty;} without even the implied warranty of
-@bold{merchantability} or @bold{fitness for a particular purpose.}
-See the GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see @url["https://www.gnu.org/licenses/"].
+@include-section["license.scrbl"]

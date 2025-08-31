@@ -42,6 +42,13 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 **Unsupported Types**
 * [x] Quadruple-Precision Floating-Point
 
+***
+
+## Docs
+
+We're using [scribble](https://docs.racket-lang.org/scribble/index.html) to generate documentation. You can generate these locally or just view them [here](https://docs.racket-lang.org/xdr/index.html).
+
+***
 
 ## Support
 
