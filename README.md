@@ -30,13 +30,13 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [x] Fixed-Length Opaque Data
 * [x] Variable-Length Opaque Data
 * [x] String
-* [x] Fixed-Length Array (**partial**)
-* [x] Variable-Length Array (**partial**)
+* [x] Fixed-Length Array (**partial** - decoder not implemented)
+* [x] Variable-Length Array (**partial** - decoder not implemented)
 * [ ] Structure
 * [ ] Discriminated Union
 * [x] Void
 * [x] Constant
-* [ ] Typedef
+* [x] Typedef (**partial** - TBD if struct is correct)
 * [ ] Optional-Data
 
 **Unsupported Types**
