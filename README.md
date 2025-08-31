@@ -35,7 +35,7 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 * [ ] Structure
 * [ ] Discriminated Union
 * [x] Void
-* [ ] Constant
+* [x] Constant
 * [ ] Typedef
 * [ ] Optional-Data
 
