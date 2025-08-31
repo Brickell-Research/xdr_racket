@@ -16,14 +16,10 @@
   (test-suite
    "XDR Boolean Tests"
    (test-suite "Boolean Decoding Tests"
-               ;; base
                (check-equal? FALSE_XDR_BOOLEAN (xdr-decode-boolean ZERO_INT_BYTES))
-               ;; true
                (check-equal? TRUE_XDR_BOOLEAN (xdr-decode-boolean ONE_INT_BYTES)))
    (test-suite "Boolean Encoding Tests"
-               ;; base
                (check-equal? ZERO_INT_BYTES (xdr-encode-boolean FALSE_XDR_BOOLEAN))
-               ;; true
                (check-equal? ONE_INT_BYTES (xdr-encode-boolean TRUE_XDR_BOOLEAN)))))
 
 (run-tests boolean-tests)

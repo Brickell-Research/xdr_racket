@@ -52,8 +52,8 @@
                (check-equal? FIXED_5_BYTE_OPAQUE_BYTES (xdr-encode-fixed-opaque FIXED_5_BYTE_XDR_OPAQUE))
                (check-equal? FIXED_8_BYTE_OPAQUE_BYTES (xdr-encode-fixed-opaque FIXED_8_BYTE_XDR_OPAQUE)))
    (test-suite "Fixed-Length Opaque Data Error Tests"
-               (check-exn exn:fail? (lambda () (xdr-decode-fixed-opaque #"\x42" 5))) ; insufficient bytes - assertion failure
-               (check-exn exn:fail? (lambda () (xdr-encode-fixed-opaque (xdr-fixed-opaque #"\x42\x43" 1))))) ; length mismatch - assertion failure
+               (check-exn exn:fail? (lambda () (xdr-decode-fixed-opaque #"\x42" 5)))
+               (check-exn exn:fail? (lambda () (xdr-encode-fixed-opaque (xdr-fixed-opaque #"\x42\x43" 1)))))
    ))
 
 (run-tests opaque-tests)

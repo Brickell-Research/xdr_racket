@@ -32,44 +32,24 @@
   (test-suite
    "XDR Integer Tests"
    (test-suite "Integer Decoding Tests"
-               ;; 32-bit signed integer
-               ;; base
                (check-equal? ZERO_XDR_INT (xdr-decode-int ZERO_INT_BYTES))
-               ;; positive
                (check-equal? ONE_XDR_INT (xdr-decode-int ONE_INT_BYTES))
-               ;; negative
                (check-equal? NEGATIVE_ONE_XDR_INT (xdr-decode-int NEGATIVE_ONE_INT_BYTES))
-               ;; max positive
                (check-equal? MAX_XDR_INT (xdr-decode-int MAX_INT_BYTES))
-               ;; min negative
                (check-equal? MIN_XDR_INT (xdr-decode-int MIN_INT_BYTES)))
    (test-suite "Unsigned Integer Decoding Tests"
-               ;; 32-bit unsigned integer
-               ;; base
                (check-equal? ZERO_UNSIGNED_XDR_INT (xdr-decode-uint ZERO_UNSIGNED_INT_BYTES))
-               ;; positive
                (check-equal? ONE_UNSIGNED_XDR_INT (xdr-decode-uint ONE_UNSIGNED_INT_BYTES))
-               ;; max positive
                (check-equal? MAX_UNSIGNED_XDR_INT (xdr-decode-uint MAX_UNSIGNED_INT_BYTES)))
    (test-suite "Integer Encoding Tests"
-               ;; 32-bit signed integer
-               ;; base
                (check-equal? ZERO_INT_BYTES (xdr-encode-int ZERO_XDR_INT))
-               ;; positive
                (check-equal? ONE_INT_BYTES (xdr-encode-int ONE_XDR_INT))
-               ;; negative
                (check-equal? NEGATIVE_ONE_INT_BYTES (xdr-encode-int NEGATIVE_ONE_XDR_INT))
-               ;; max positive
                (check-equal? MAX_INT_BYTES (xdr-encode-int MAX_XDR_INT))
-               ;; min negative
                (check-equal? MIN_INT_BYTES (xdr-encode-int MIN_XDR_INT)))
    (test-suite "Unsigned Integer Encoding Tests"
-               ;; 32-bit unsigned integer
-               ;; base
                (check-equal? ZERO_UNSIGNED_INT_BYTES (xdr-encode-uint ZERO_UNSIGNED_XDR_INT))
-               ;; positive
                (check-equal? ONE_UNSIGNED_INT_BYTES (xdr-encode-uint ONE_UNSIGNED_XDR_INT))
-               ;; max positive
                (check-equal? MAX_UNSIGNED_INT_BYTES (xdr-encode-uint MAX_UNSIGNED_XDR_INT)))))
 
 (run-tests integer-tests)
