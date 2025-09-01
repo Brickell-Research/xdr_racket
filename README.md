@@ -1,5 +1,7 @@
 # xdr
 
+Created and maintained by [Brickell Research](https://brickellresearch.org/).
+
 [![Racket Package](https://img.shields.io/badge/raco%20pkg%20install-XDR-blue.svg?logo=racket)](https://pkgd.racket-lang.org/pkgn/package/XDR)
 [![Unit Tests](https://github.com/robertDurst/xdr_racket/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/robertDurst/xdr_racket/actions/workflows/unit-tests.yml)
 [![Typed Racket](https://img.shields.io/badge/-Made%20with%20Typed%20Racket-darkred?logo=racket)](https://docs.racket-lang.org/ts-guide/)
