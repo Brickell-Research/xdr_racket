@@ -17,6 +17,14 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 
 ***
 
+## Support
+
+If you find this library helpful, consider supporting my work:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/rdurst)
+
+***
+
 ## Project Status
 
 **Supported Types**
@@ -50,9 +58,3 @@ This library is motivated by my work with XDR at the [Stellar Development Founda
 We're using [scribble](https://docs.racket-lang.org/scribble/index.html) to generate documentation. You can generate these locally or just view them [here](https://docs.racket-lang.org/xdr/index.html).
 
 ***
-
-## Support
-
-If you find this library helpful, consider supporting my work:
-
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/rdurst)
