@@ -17,6 +17,7 @@
    ["enum"     "enum"]
    ["struct"   "struct"]
    ["typedef"  "typedef"]
+   ["namespace" "namespace"]
    ["%#include" "%#include"]
    ["="        "="]
    ["{"        "{"]
