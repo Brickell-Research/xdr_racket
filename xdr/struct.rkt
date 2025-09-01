@@ -1,7 +1,13 @@
 #lang typed/racket
 
 (require (for-syntax syntax/parse
-                     racket/syntax)) ; format-id lives here
+                     racket/syntax) ; format-id lives here
+         "integer.rkt"
+         "boolean.rkt"
+         "string.rkt"
+         "opaque.rkt"
+         "floating-point.rkt"
+         "hyper.rkt")
 
 (provide define-xdr-struct)
 
@@ -43,9 +49,25 @@
       [(~datum String)  #'""]
       [(~datum Boolean) #'#f]
       [(~datum Bytes)   #'#""]
+      [(~datum Float)   #'0.0]
       [_ (raise-syntax-error
           #f
           (format "no default known for type: ~a" (syntax-e ty-stx))
+          ty-stx)]))
+
+  ;; Generate encoding expression for a field based on its type
+  (define (encode-expr field-access ty-stx)
+    (syntax-parse ty-stx
+      [(~or (~datum Integer) (~datum Number)) #`(xdr-encode-int (xdr-int #,field-access))]
+      [(~datum Natural) #`(xdr-encode-uint (xdr-uint #,field-access))]
+      [(~datum String) #`(xdr-encode-string (xdr-string #,field-access))]
+      [(~datum Boolean) #`(xdr-encode-boolean (xdr-boolean #,field-access))]
+      [(~datum Bytes) #`(xdr-encode-opaque (xdr-opaque #,field-access))]
+      [(~datum Float) #`(xdr-encode-floating-point (xdr-floating-point #,field-access))]
+      [(~datum Real) #`(xdr-encode-double (xdr-double-floating-point #,field-access))]
+      [_ (raise-syntax-error
+          #f
+          (format "no encoder known for type: ~a" (syntax-e ty-stx))
           ty-stx)]))
 
   ;; Field syntax: user writes [field Type]; we synthesize a zero attr
@@ -59,12 +81,22 @@
     [(_ name:id (f:Field ...))
      #:with empty-id (format-id #'name "~a-empty" #'name)
      #:with from-bytes-id (format-id #'name "~a-from-bytes" #'name)
-     #'(begin
+     #:with to-bytes-id (format-id #'name "~a-to-bytes" #'name)
+     (define encode-exprs
+       (for/list ([field (syntax->list #'(f.field ...))]
+                  [type (syntax->list #'(f.type ...))])
+         (encode-expr #`(#,(format-id #'name "~a-~a" #'name field) struct) type)))
+     #`(begin
          ;; Struct definition
          (struct name ([f.field : f.type] ...))
 
          ;; Construct a struct with default values
          (: empty-id (-> name))
          (define (empty-id)
-           (name f.zero ...)))]))
+           (name f.zero ...))
+
+         ;; Generate bytes from a struct
+         (: to-bytes-id (-> name Bytes))
+         (define (to-bytes-id struct)
+           #,(quasisyntax (bytes-append #,@encode-exprs))))]))
 ;; ------------------------------------------------------------------
