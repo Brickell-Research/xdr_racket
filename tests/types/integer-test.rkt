@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/integer.rkt")
+(require "../../xdr/types/integer.rkt")
 
 ;; Integer Constants as XDR Integers
 (define ZERO_XDR_INT (xdr-int 0))

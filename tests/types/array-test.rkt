@@ -2,14 +2,14 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/array.rkt"
-         "../xdr/integer.rkt"
-         "../xdr/boolean.rkt"
-         "../xdr/hyper.rkt"
-         "../xdr/floating-point.rkt"
-         "../xdr/string.rkt"
-         "../xdr/opaque.rkt"
-         "../xdr/void.rkt")
+(require "../../xdr/types/array.rkt"
+         "../../xdr/types/integer.rkt"
+         "../../xdr/types/boolean.rkt"
+         "../../xdr/types/hyper.rkt"
+         "../../xdr/types/floating-point.rkt"
+         "../../xdr/types/string.rkt"
+         "../../xdr/types/opaque.rkt"
+         "../../xdr/types/void.rkt")
 
 (define EMPTY_XDR_FIXED_LENGTH_ARRAY (xdr-fixed-length-array 0 '() xdr-encode-int xdr-decode-int))
 (define TWO_ELEMENT_INT_ARRAY (xdr-fixed-length-array 2 (list (xdr-int 1) (xdr-int 2)) xdr-encode-int xdr-decode-int))

@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/string.rkt")
+(require "../../xdr/types/string.rkt")
 
 ;; String Constants as XDR Strings
 (define EMPTY_XDR_STRING (xdr-string ""))

@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/hyper.rkt")
+(require "../../xdr/types/hyper.rkt")
 
 ;; Hyper Integer Constants as XDR Hyper Integers
 (define ZERO_XDR_HYPER (xdr-hyper 0))

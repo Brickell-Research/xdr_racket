@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/opaque.rkt")
+(require "../../xdr/types/opaque.rkt")
 
 ;; Variable-Length Opaque Constants as XDR Opaque Data
 (define EMPTY_XDR_OPAQUE (xdr-opaque #""))

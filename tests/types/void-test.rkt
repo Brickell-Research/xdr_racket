@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/void.rkt")
+(require "../../xdr/types/void.rkt")
 
 ;; Constants as Bytes
 (define EMPTY_BYTES #"")

@@ -1,6 +1,6 @@
 #lang typed/racket
 
-(require "internal/common.rkt")
+(require "../internal/common.rkt")
 
 (provide
  ;; XDR Variable-Length Opaque Data

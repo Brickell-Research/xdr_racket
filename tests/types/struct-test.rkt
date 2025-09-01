@@ -1,7 +1,7 @@
 #lang typed/racket
 
 (require typed/rackunit typed/rackunit/text-ui)
-(require "../xdr/struct.rkt")
+(require "../../xdr/types/struct.rkt")
 
 ;; MyRange struct equivalent to the JS test
 ;; struct MyRange {

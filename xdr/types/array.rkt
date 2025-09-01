@@ -3,7 +3,7 @@
 (provide xdr-fixed-length-array xdr-encode-fixed-length-array xdr-decode-fixed-length-array
          xdr-variable-length-array xdr-encode-variable-length-array xdr-decode-variable-length-array)
 
-(require "internal/common.rkt")
+(require "../internal/common.rkt")
 
 ;; Fixed-Length Array
 ;  Declarations for fixed-length arrays of homogeneous elements are in

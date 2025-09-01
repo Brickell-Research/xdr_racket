@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/boolean.rkt")
+(require "../../xdr/types/boolean.rkt")
 
 ;; Boolean Constants as XDR Booleans
 (define FALSE_XDR_BOOLEAN (xdr-boolean #f))

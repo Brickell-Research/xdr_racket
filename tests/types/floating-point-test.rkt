@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../xdr/floating-point.rkt")
+(require "../../xdr/types/floating-point.rkt")
 
 ;; Single Precision Floating Point Constants as XDR Floating Points
 (define NEGATIVE_ZERO_XDR_FLOAT (xdr-floating-point -0.0))

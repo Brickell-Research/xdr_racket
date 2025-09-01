@@ -2,8 +2,8 @@
 
 (require rackunit
          rackunit/text-ui
-         "../xdr/enum.rkt"
-         "../xdr/internal/common.rkt")
+         "../../xdr/types/enum.rkt"
+         "../../xdr/internal/common.rkt")
 
 ;; Enum Constants as XDR Data
 (define EMPTY_XDR_ENUM (xdr-enum '()))
