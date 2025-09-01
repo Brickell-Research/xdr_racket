@@ -27,29 +27,7 @@ If you find this library helpful, consider supporting my work:
 
 ## Project Status
 
-**Supported Types**
-* [x] Integer
-* [x] Unsigned Integer
-* [x] Hyper Integer
-* [x] Unsigned Hyper Integer
-* [x] Boolean
-* [x] Enumeration
-* [x] Floating Point
-* [x] Double-Precision Floating-Point
-* [x] Fixed-Length Opaque Data
-* [x] Variable-Length Opaque Data
-* [x] String
-* [x] Fixed-Length Array (**partial** - decoder not implemented)
-* [x] Variable-Length Array (**partial** - decoder not implemented)
-* [x] Structure (**partial** - decoder not implemented)
-* [ ] Discriminated Union
-* [x] Void
-* [x] Constant
-* [x] Typedef (**partial** - TBD if struct is correct)
-* [ ] Optional-Data
-
-**Unsupported Types**
-* [x] Quadruple-Precision Floating-Point
+See milestone 1 for pending initial, feature complete release [here](https://github.com/robertDurst/xdr_racket/milestone/1).
 
 ***
 
