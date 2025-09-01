@@ -11,6 +11,7 @@
 (define basic-lex
   (lexer
    [(:+ (:or #\space #\tab)) (basic-lex input-port)]
+   [(:seq "//" (:* (:~ #\newline)) (:? #\newline)) (basic-lex input-port)]
    [(:+ #\newline) (token-NEWLINE)]
    ["const"    "const"]
    ["enum"     "enum"]
