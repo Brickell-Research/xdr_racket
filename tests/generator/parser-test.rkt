@@ -48,6 +48,26 @@ EOF
 (define INCLUDE_CONSTANT_PARSED_EXPECTED '(TOP_CONFIG (INCLUDE_EXPR "%#include" (FILE_PATH "xdr/Stellar-types.h"))))
 
 
+;; Constants - Typedef
+;; typedef opaque UpgradeType<128>;
+;; typedef TransactionEnvelope DependentTxCluster<>;
+;; typedef unsigned hyper uint64;
+;; typedef TransactionEnvelope DependentTxCluster<SOME_MAX_SIZE>;
+;; typedef uint64 Duration;
+;; typedef opaque Hash[32];
+(define TYPEDEF_CONSTANT "typedef opaque UpgradeType<128>;")
+(define TYPEDEF_CONSTANT_PARSED_EXPECTED '(TOP_CONFIG (TYPEDEF_EXPR "typedef" "opaque" "UpgradeType" "<" (ANY_VALUE 128) ">" SEMICOLON)))
+(define TYPEDEF_CONSTANT_2 "typedef TransactionEnvelope DependentTxCluster<>;")
+(define TYPEDEF_CONSTANT_2_PARSED_EXPECTED '(TOP_CONFIG (TYPEDEF_EXPR "typedef" "TransactionEnvelope" "DependentTxCluster" "<" ">" SEMICOLON)))
+(define TYPEDEF_CONSTANT_3 "typedef unsigned hyper uint64;")
+(define TYPEDEF_CONSTANT_3_PARSED_EXPECTED '(TOP_CONFIG (TYPEDEF_EXPR "typedef" "unsigned" "hyper" "uint64" SEMICOLON)))
+(define TYPEDEF_CONSTANT_4 "typedef TransactionEnvelope DependentTxCluster<SOME_MAX_SIZE>;")
+(define TYPEDEF_CONSTANT_4_PARSED_EXPECTED '(TOP_CONFIG (TYPEDEF_EXPR "typedef" "TransactionEnvelope" "DependentTxCluster" "<" (ANY_VALUE "SOME_MAX_SIZE") ">" SEMICOLON)))
+(define TYPEDEF_CONSTANT_5 "typedef uint64 Duration;")
+(define TYPEDEF_CONSTANT_5_PARSED_EXPECTED '(TOP_CONFIG (TYPEDEF_EXPR "typedef" "uint64" "Duration" SEMICOLON)))
+(define TYPEDEF_CONSTANT_6 "typedef opaque Hash[32];")
+(define TYPEDEF_CONSTANT_6_PARSED_EXPECTED '(TOP_CONFIG (TYPEDEF_EXPR "typedef" "opaque" "Hash" "[" (ANY_VALUE 32) "]" SEMICOLON)))
+
 (define parser-tests
   (test-suite
    "XDR Parser Tests"
@@ -90,6 +110,43 @@ EOF
                (test-case "Include Expression Parsing - Parse Tree"
                           (check-equal?
                            (syntax->datum (parse-expr INCLUDE_CONSTANT))
-                           INCLUDE_CONSTANT_PARSED_EXPECTED)))))
+                           INCLUDE_CONSTANT_PARSED_EXPECTED)))
 
+   (test-suite "Typedef Expression Parsing Tests"
+               (test-case "Typedef Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr TYPEDEF_CONSTANT)))
+               (test-case "Typedef Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr TYPEDEF_CONSTANT))
+                           TYPEDEF_CONSTANT_PARSED_EXPECTED))
+               (test-case "Typedef Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr TYPEDEF_CONSTANT_2)))
+               (test-case "Typedef Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr TYPEDEF_CONSTANT_2))
+                           TYPEDEF_CONSTANT_2_PARSED_EXPECTED))
+               (test-case "Typedef Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr TYPEDEF_CONSTANT_3)))
+               (test-case "Typedef Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr TYPEDEF_CONSTANT_3))
+                           TYPEDEF_CONSTANT_3_PARSED_EXPECTED))
+               (test-case "Typedef Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr TYPEDEF_CONSTANT_4)))
+               (test-case "Typedef Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr TYPEDEF_CONSTANT_4))
+                           TYPEDEF_CONSTANT_4_PARSED_EXPECTED))
+               (test-case "Typedef Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr TYPEDEF_CONSTANT_5)))
+               (test-case "Typedef Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr TYPEDEF_CONSTANT_5))
+                           TYPEDEF_CONSTANT_5_PARSED_EXPECTED))
+               (test-case "Typedef Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr TYPEDEF_CONSTANT_6)))
+               (test-case "Typedef Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr TYPEDEF_CONSTANT_6))
+                           TYPEDEF_CONSTANT_6_PARSED_EXPECTED)))))
 (run-tests parser-tests)
