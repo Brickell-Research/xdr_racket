@@ -1,7 +1,7 @@
 #lang info
 
 (define collection "xdr")
-(define deps '("base" "typed-racket-lib"))
+(define deps '("base" "typed-racket-lib" "brag"))
 (define build-deps
   '("racket-doc"
     "scribble-lib"
