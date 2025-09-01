@@ -16,6 +16,8 @@
                           (ENUM_MEMBER "GREEN" "=" (ANY_VALUE 2)) COMMA
                           (ENUM_MEMBER "BLUE" "=" (ANY_VALUE 3))
                           "}")))
+(define EMPTY_ENUM_CONSTANT "enum EMPTY_ENUM {}")
+(define EMPTY_ENUM_CONSTANT_PARSED_EXPECTED '(TOP_CONFIG (ENUM_EXPR "enum" "EMPTY_ENUM" "{" "}")))
 
 ;; Constants - Struct
 (define COLOR_STRUCT_CONSTANT #<<EOF
@@ -37,6 +39,8 @@ EOF
      (STRUCT_MEMBER_LINE NEWLINE (STRUCT_MEMBER "NAME_3" "string" SEMICOLON))
      NEWLINE
      "}")))
+(define EMPTY_STRUCT_CONSTANT "struct EMPTY_STRUCT {}")
+(define EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED '(TOP_CONFIG (STRUCT_EXPR "struct" "EMPTY_STRUCT" "{" "}")))
 
 (define parser-tests
   (test-suite
@@ -54,13 +58,25 @@ EOF
                (test-case "Enum Expression Parsing - Parse Tree"
                           (check-equal?
                            (syntax->datum (parse-expr COLOR_ENUM_CONSTANT))
-                           COLOR_ENUM_CONSTANT_PARSED_EXPECTED)))
+                           COLOR_ENUM_CONSTANT_PARSED_EXPECTED))
+               (test-case "Enum Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr EMPTY_ENUM_CONSTANT)))
+               (test-case "Enum Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr EMPTY_ENUM_CONSTANT))
+                           EMPTY_ENUM_CONSTANT_PARSED_EXPECTED)))
    (test-suite "Struct Expression Parsing Tests"
                (test-case "Struct Expression Parsing - Parse Success"
                           (check-not-false (parse-expr COLOR_STRUCT_CONSTANT)))
                (test-case "Struct Expression Parsing - Parse Tree"
                           (check-equal?
                            (syntax->datum (parse-expr COLOR_STRUCT_CONSTANT))
-                           COLOR_STRUCT_CONSTANT_PARSED_EXPECTED)))))
+                           COLOR_STRUCT_CONSTANT_PARSED_EXPECTED))
+               (test-case "Struct Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr EMPTY_STRUCT_CONSTANT)))
+               (test-case "Struct Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr EMPTY_STRUCT_CONSTANT))
+                           EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED)))))
 
 (run-tests parser-tests)
