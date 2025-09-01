@@ -41,7 +41,7 @@ If you find this library helpful, consider supporting my work:
 * [x] String
 * [x] Fixed-Length Array (**partial** - decoder not implemented)
 * [x] Variable-Length Array (**partial** - decoder not implemented)
-* [ ] Structure
+* [x] Structure (**partial** - decoder not implemented)
 * [ ] Discriminated Union
 * [x] Void
 * [x] Constant

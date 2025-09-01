@@ -70,6 +70,20 @@
           (format "no encoder known for type: ~a" (syntax-e ty-stx))
           ty-stx)]))
 
+  (define (decode-expr field-access ty-stx)
+    (syntax-parse ty-stx
+      [(~or (~datum Integer) (~datum Number)) #`(xdr-decode-int (xdr-int #,field-access))]
+      [(~datum Natural) #`(xdr-decode-uint (xdr-uint #,field-access))]
+      [(~datum String) #`(xdr-decode-string (xdr-string #,field-access))]
+      [(~datum Boolean) #`(xdr-decode-boolean (xdr-boolean #,field-access))]
+      [(~datum Bytes) #`(xdr-decode-opaque (xdr-opaque #,field-access))]
+      [(~datum Float) #`(xdr-decode-floating-point (xdr-floating-point #,field-access))]
+      [(~datum Real) #`(xdr-decode-double (xdr-double-floating-point #,field-access))]
+      [_ (raise-syntax-error
+          #f
+          (format "no decoder known for type: ~a" (syntax-e ty-stx))
+          ty-stx)]))
+
   ;; Field syntax: user writes [field Type]; we synthesize a zero attr
   (define-syntax-class Field
     (pattern [field:id type:SimpleType]
@@ -86,6 +100,10 @@
        (for/list ([field (syntax->list #'(f.field ...))]
                   [type (syntax->list #'(f.type ...))])
          (encode-expr #`(#,(format-id #'name "~a-~a" #'name field) struct) type)))
+     (define decode-exprs
+       (for/list ([field (syntax->list #'(f.field ...))]
+                  [type (syntax->list #'(f.type ...))])
+         (decode-expr #`(#,(format-id #'name "~a-~a" #'name field) struct) type)))
      #`(begin
          ;; Struct definition
          (struct name ([f.field : f.type] ...))
@@ -98,5 +116,12 @@
          ;; Generate bytes from a struct
          (: to-bytes-id (-> name Bytes))
          (define (to-bytes-id struct)
-           #,(quasisyntax (bytes-append #,@encode-exprs))))]))
+           #,(quasisyntax (bytes-append #,@encode-exprs)))
+
+
+         ;; Generate a struct from bytes
+         ; (: from-bytes-id (-> Bytes name))
+         ;  (define (from-bytes-id bstr)
+         ;    #,(quasisyntax (bytes-append #,@encode-exprs))))
+         )]))
 ;; ------------------------------------------------------------------
