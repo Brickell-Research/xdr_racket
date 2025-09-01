@@ -42,6 +42,12 @@ EOF
 (define EMPTY_STRUCT_CONSTANT "struct EMPTY_STRUCT {}")
 (define EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED '(TOP_CONFIG (STRUCT_EXPR "struct" "EMPTY_STRUCT" "{" "}")))
 
+;; Constants - Include
+;; %#include "xdr/Stellar-types.h"
+(define INCLUDE_CONSTANT "%#include \"xdr/Stellar-types.h\"")
+(define INCLUDE_CONSTANT_PARSED_EXPECTED '(TOP_CONFIG (INCLUDE_EXPR "%#include" (FILE_PATH "xdr/Stellar-types.h"))))
+
+
 (define parser-tests
   (test-suite
    "XDR Parser Tests"
@@ -77,6 +83,13 @@ EOF
                (test-case "Struct Expression Parsing - Parse Tree"
                           (check-equal?
                            (syntax->datum (parse-expr EMPTY_STRUCT_CONSTANT))
-                           EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED)))))
+                           EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED)))
+   (test-suite "Include Expression Parsing Tests"
+               (test-case "Include Expression Parsing - Parse Success"
+                          (check-not-false (parse-expr INCLUDE_CONSTANT)))
+               (test-case "Include Expression Parsing - Parse Tree"
+                          (check-equal?
+                           (syntax->datum (parse-expr INCLUDE_CONSTANT))
+                           INCLUDE_CONSTANT_PARSED_EXPECTED)))))
 
 (run-tests parser-tests)

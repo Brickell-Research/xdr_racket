@@ -5,7 +5,7 @@
 
 ;; Token types
 (define-empty-tokens empty-toks (COMMA SEMICOLON NEWLINE))
-(define-tokens       value-toks (NUMBER IDENTIFIER))
+(define-tokens       value-toks (NUMBER IDENTIFIER STRING))
 
 ;; Create the basic lexer
 (define basic-lex
@@ -15,11 +15,13 @@
    ["const"    "const"]
    ["enum"     "enum"]
    ["struct"   "struct"]
+   ["%#include" "%#include"]
    ["="        "="]
    ["{"        "{"]
    ["}"        "}"]
    [","        (token-COMMA)]
    [";"        (token-SEMICOLON)]
+   [(:seq #\" (:* (:~ #\")) #\") (token-STRING (substring lexeme 1 (- (string-length lexeme) 1)))]
    [(:+ numeric) (token-NUMBER (string->number lexeme))]
    [(:seq (:or alphabetic "_") (:* (:or alphabetic numeric "_"))) (token-IDENTIFIER lexeme)]
    [(eof)      (void)]))
