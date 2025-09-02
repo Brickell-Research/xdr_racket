@@ -4,7 +4,6 @@
          "lexer.rkt")
 
 (define (parse-expr s)
-  (parse (lex (open-input-string s)))) ; returns a simple parse tree s-expression
-
+  (syntax->datum (parse (lex (open-input-string s))))) ; returns a simple parse tree s-expression
 
 (provide parse-expr)
