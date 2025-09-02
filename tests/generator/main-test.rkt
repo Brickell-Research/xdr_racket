@@ -19,6 +19,14 @@
         (check-equal? (cadr module-body) 'basic-mod)
         (check-equal? (caddr module-body) 'expander)
         (let ([parse-tree (cadddr module-body)])
-          (check-equal? parse-tree '(TOP_CONFIG (CONFIG (CONST_EXPR "const" "MAX_SIZE" "=" (ANY_VALUE 42)))))))))))
+          (check-equal? parse-tree '(TOP_CONFIG (CONFIG (CONST_EXPR "const" "MAX_SIZE" "=" (ANY_VALUE 42)))))))))
+
+   (test-case
+    "XDR expander compilation test"
+    ;; Test that the expander compiles without errors
+    (let ([expander-path "../../xdr/generator/expander.rkt"])
+      (check-true (file-exists? expander-path))
+      ;; Try to require the expander - this will fail if there are syntax errors
+      (check-not-exn (lambda () (dynamic-require expander-path #f)))))))
 
 (run-tests generator-tests)
