@@ -18,7 +18,9 @@ This implementation provides the following XDR data types as defined in RFC 4506
 ]
 
 @bold{Note:} we do not support the following:
+@itemlist[
 @item{@racket[xdr-union]: Union data type}
 @item{@racket[xdr-quadruple]: Quadruple-precision floating-point numbers in IEEE 754 format}
+]
 
 Each type includes encoding and decoding functions following the pattern @racket[xdr-encode-TYPE] and @racket[xdr-decode-TYPE].
