@@ -3,42 +3,21 @@
 (require br-parser-tools/lex
          brag/support)
 
-;; Token types
-(define-empty-tokens empty-toks (COMMA SEMICOLON NEWLINE))
-(define-tokens       value-toks (NUMBER IDENTIFIER STRING))
+(define-lex-abbrev digits (:+ (char-set "0123456789")))
 
 ;; Create the basic lexer
-(define basic-lex
-  (lexer
-   [(:+ (:or #\space #\tab)) (basic-lex input-port)]
-   [(:seq "//" (:* (:~ #\newline)) (:? #\newline)) (basic-lex input-port)]
-   [(:+ #\newline) (token-NEWLINE)]
-   ["const"    "const"]
-   ["enum"     "enum"]
-   ["struct"   "struct"]
-   ["typedef"  "typedef"]
-   ["namespace" "namespace"]
-   ["%#include" "%#include"]
-   ["="        "="]
-   ["{"        "{"]
-   ["}"        "}"]
-   ["<"        "<"]
-   [">"        ">"]
-   ["["        "["]
-   ["]"        "]"]
-   [","        (token-COMMA)]
-   [";"        (token-SEMICOLON)]
-   [(:seq #\" (:* (:~ #\")) #\") (token-STRING (substring lexeme 1 (- (string-length lexeme) 1)))]
-   [(:+ numeric) (token-NUMBER (string->number lexeme))]
-   [(:seq (:or alphabetic "_") (:* (:or alphabetic numeric "_"))) (token-IDENTIFIER lexeme)]
+(define basic-lexer
+  (lexer-srcloc
+   [(from/to "//" "\n") (token 'COMMENT lexeme)]
+   ["\n" (token 'LINE-SEP)]
+   [whitespace (token lexeme #:skip? #t)]
+   [(:or "const" "enum" "struct" "typedef" "namespace" "%#include") (token 'KEYWORD lexeme)]
+   [(:or "=" "{" "}" "<" ">" "[" "]" "," ";") (token 'OPERATOR lexeme)]
+   [(:seq #\" (:* (:~ #\")) #\") (token 'STRING (substring lexeme 1 (- (string-length lexeme) 1)))]
+   [digits (token 'INTEGER (string->number lexeme))]
+   [(:or (:seq (:? digits) "." digits)
+         (:seq digits ".")) (token 'DECIMAL (string->number lexeme))]
+   [(:seq (:or alphabetic "_") (:* (:or alphabetic numeric "_"))) (token 'IDENTIFIER lexeme)]
    [(eof)      (void)]))
 
-;; Create a lexer function that works with brag
-(define (make-lexer input-port)
-  (lambda ()
-    (basic-lex input-port)))
-
-;; For compatibility with the parser
-(define lex make-lexer)
-
-(provide lex)
+(provide basic-lexer)
