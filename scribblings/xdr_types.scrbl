@@ -13,6 +13,12 @@ This implementation provides the following XDR data types as defined in RFC 4506
 @item{@racket[xdr-string]: Variable-length ASCII strings with length prefix and padding}
 @item{@racket[xdr-opaque]: Variable-length opaque data with length prefix and padding}
 @item{@racket[xdr-fixed-opaque]: Fixed-length opaque data with padding to 4-byte boundaries}
+@item{@racket[xdr-float]: Single-precision floating-point numbers in IEEE 754 format}
+@item{@racket[xdr-double]: Double-precision floating-point numbers in IEEE 754 format}
 ]
+
+@bold{Note:} we do not support the following:
+@item{@racket[xdr-union]: Union data type}
+@item{@racket[xdr-quadruple]: Quadruple-precision floating-point numbers in IEEE 754 format}
 
 Each type includes encoding and decoding functions following the pattern @racket[xdr-encode-TYPE] and @racket[xdr-decode-TYPE].
