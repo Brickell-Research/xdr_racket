@@ -1,6 +1,6 @@
 #lang info
 
-(define collection "xdr")
+(define collection 'multi)
 (define deps '("base" "typed-racket-lib" "brag" "br-parser-tools" "beautiful-racket" "rackunit"))
 (define build-deps
   '("racket-doc"

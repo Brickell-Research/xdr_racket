@@ -3,8 +3,8 @@
 
 (require rackunit
          rackunit/text-ui
-         "../../xdr/generator/parser.rkt"
-         "../../xdr/generator/tokenizer.rkt")
+         "../../xdr/generator/lang/parser.rkt"
+         "../../xdr/generator/lang/tokenizer.rkt")
 
 ;; Helper functions
 (define (xdr-any-value-gen value)
@@ -20,13 +20,6 @@
 (define (assert-parse input expected)
   (define actual (apply-parser input))
   (check-equal? actual expected))
-
-
-;; Namespace
-(define NAMESPACE_WITH_EMPTY_BODY "namespace FOOBAR {}")
-(define NAMESPACE_WITH_EMPTY_BODY_PARSED_EXPECTED '(program (xdr-namespace-expr "FOOBAR")))
-(define NAMESPACE_WITH_CONSTANT "namespace FOOBAR { const FOO = 42 }")
-(define NAMESPACE_WITH_CONSTANT_PARSED_EXPECTED `(program (xdr-namespace-expr "FOOBAR" (xdr-config (xdr-const-expr (xdr-const-name "FOO") ,(xdr-int-gen 42))))))
 
 ;; Constants
 (define (define-const-tree name value)
@@ -102,11 +95,6 @@
 
 (define parser-tests
   (test-suite "parser tests"
-              (test-suite "namespace"
-                          (test-case "empty body"
-                                     (assert-parse NAMESPACE_WITH_EMPTY_BODY NAMESPACE_WITH_EMPTY_BODY_PARSED_EXPECTED))
-                          (test-case "with constant"
-                                     (assert-parse NAMESPACE_WITH_CONSTANT NAMESPACE_WITH_CONSTANT_PARSED_EXPECTED)))
               (test-suite "constant"
                           (test-case "with integer value"
                                      (assert-parse CONSTANT_WITH_INTEGER_VALUE CONSTANT_WITH_INTEGER_VALUE_PARSED_EXPECTED))

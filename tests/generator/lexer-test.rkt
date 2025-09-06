@@ -1,5 +1,5 @@
 #lang br
-(require "../../xdr/generator/lexer.rkt" brag/support rackunit rackunit/text-ui)
+(require "../../xdr/generator/lang/lexer.rkt" brag/support rackunit rackunit/text-ui)
 (require br-parser-tools/lex
          brag/support)
 
@@ -16,10 +16,6 @@
                          (check-equal? (test-lexer "// This is a comment\n") (srcloc-token
                                                                               (token-struct 'COMMENT "// This is a comment\n" #f #f #f #f #f)
                                                                               (srcloc 'string #f #f 1 21))))
-              (test-case "line separator"
-                         (check-equal? (test-lexer "\n") (srcloc-token
-                                                          (token-struct 'LINE-SEP #f #f #f #f #f #f)
-                                                          (srcloc 'string #f #f 1 1))))
               (test-case "integer"
                          (check-equal? (test-lexer "123") (srcloc-token
                                                            (token-struct 'INTEGER 123 #f #f #f #f #f)

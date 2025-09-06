@@ -2,7 +2,7 @@
 
 (require rackunit
          rackunit/text-ui)
-(require "../../xdr/generator/tokenizer.rkt"
+(require "../../xdr/generator/lang/tokenizer.rkt"
          brag/support)
 
 (define tokenizer-tests

@@ -4,7 +4,7 @@
 (define (read-syntax path port)
   (define parse-tree (parse path (make-tokenizer port path)))
   (strip-bindings
-   #`(module xdr-generator-mod xdr/generator/expander
+   #`(module xdr-generator-mod xdr/generator/lang/expander
        #,parse-tree)))
 
 (module+ reader

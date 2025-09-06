@@ -9,7 +9,6 @@
 (define basic-lexer
   (lexer-srcloc
    [(from/to "//" "\n") (token 'COMMENT lexeme)]
-   ["\n" (token 'LINE-SEP)]
    [whitespace (token lexeme #:skip? #t)]
    ["const" (token 'const lexeme)]
    ["enum" (token 'enum lexeme)]
