@@ -14,6 +14,12 @@
   (xdr-any-value-gen `(xdr-decimal-value ,value)))
 (define (xdr-string-gen value)
   (xdr-any-value-gen `(xdr-string-value ,value)))
+(define (apply-parser input)
+  (parse-to-datum (apply-tokenizer make-tokenizer input)))
+(define (assert-parse input expected)
+  (define actual (apply-parser input))
+  (check-equal? actual expected))
+
 
 ;; Namespace
 (define NAMESPACE_WITH_EMPTY_BODY "namespace FOOBAR {}")
@@ -40,6 +46,12 @@
 (define (enum-gen name members)
   `(program (xdr-config (xdr-enum-expr ,name ,@members))))
 (define COLOR_ENUM_CONSTANT_PARSED_EXPECTED (enum-gen "COLOR" (list (enum-member-gen "RED" (xdr-int-gen 1)) (enum-member-gen "GREEN" (xdr-int-gen 2)) (enum-member-gen "BLUE" (xdr-int-gen 3)))))
+(define ENUM_WITH_NEWLINES "enum COLOR {
+  RED = 1,
+  GREEN = 2,
+  BLUE = 3
+}")
+(define ENUM_WITH_NEWLINES_PARSED_EXPECTED (enum-gen "COLOR" (list (enum-member-gen "RED" (xdr-int-gen 1)) (enum-member-gen "GREEN" (xdr-int-gen 2)) (enum-member-gen "BLUE" (xdr-int-gen 3)))))
 
 ;; Typedefs
 (define (typedef-tree . args)
@@ -63,19 +75,11 @@
 (define SIMPLE_HEADER_INCLUDE "%#include \"types.h\";")
 (define SIMPLE_HEADER_INCLUDE_PARSED_EXPECTED (include-tree '(xdr-string-value "types.h")))
 
-(define (apply-parser input)
-  (parse-to-datum (apply-tokenizer make-tokenizer input)))
-
-(define (assert-parse input expected)
-  (define actual (apply-parser input))
-  (check-equal? actual expected))
-
 ;; Structs
 (define (struct-member-gen type-name var-name)
-  `(xdr-struct-member-line #f (xdr-struct-member ,type-name ,var-name)))
+  `(xdr-struct-member-line (xdr-struct-member ,type-name ,var-name)))
 (define (struct-tree name members)
   `(program (xdr-config (xdr-struct-expr ,name ,@members))))
-
 (define SIMPLE_STRUCT_CONSTANT "struct Dog {
   SomeType NAME_1;
   int NAME_2;
@@ -85,10 +89,15 @@
   (struct-tree "Dog" (list
                       (struct-member-gen "SomeType" "NAME_1")
                       (struct-member-gen "int" "NAME_2")
-                      (struct-member-gen "string" "NAME_3")
-                      '#f)))
+                      (struct-member-gen "string" "NAME_3"))))
 (define EMPTY_STRUCT_CONSTANT "struct EMPTY_STRUCT {}")
 (define EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED '(program (xdr-config (xdr-struct-expr "EMPTY_STRUCT"))))
+(define SINGLE_LINE_STRUCT_CONSTANT "struct Dog { SomeType NAME_1; int NAME_2; string NAME_3; }")
+(define SINGLE_LINE_STRUCT_CONSTANT_PARSED_EXPECTED (struct-tree "Dog" (list
+                                                                   (struct-member-gen "SomeType" "NAME_1")
+                                                                   (struct-member-gen "int" "NAME_2")
+                                                                   (struct-member-gen "string" "NAME_3"))))
+
 
 (define parser-tests
   (test-suite "parser tests"
@@ -108,12 +117,16 @@
                           (test-case "empty"
                                      (assert-parse EMPTY_ENUM_CONSTANT EMPTY_ENUM_CONSTANT_PARSED_EXPECTED))
                           (test-case "with members"
-                                     (assert-parse COLOR_ENUM_CONSTANT COLOR_ENUM_CONSTANT_PARSED_EXPECTED)))
+                                     (assert-parse COLOR_ENUM_CONSTANT COLOR_ENUM_CONSTANT_PARSED_EXPECTED))
+                          (test-case "with newlines"
+                                     (assert-parse ENUM_WITH_NEWLINES ENUM_WITH_NEWLINES_PARSED_EXPECTED)))
               (test-suite "struct"
                           (test-case "empty"
                                      (assert-parse EMPTY_STRUCT_CONSTANT EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED))
                           (test-case "with members"
-                                     (assert-parse SIMPLE_STRUCT_CONSTANT SIMPLE_STRUCT_CONSTANT_PARSED_EXPECTED)))
+                                     (assert-parse SIMPLE_STRUCT_CONSTANT SIMPLE_STRUCT_CONSTANT_PARSED_EXPECTED))
+                          (test-case "single line"
+                                     (assert-parse SINGLE_LINE_STRUCT_CONSTANT SINGLE_LINE_STRUCT_CONSTANT_PARSED_EXPECTED)))
               (test-suite "typedef"
                           (test-case "simple"
                                      (assert-parse SIMPLE_TYPEDEF SIMPLE_TYPEDEF_PARSED_EXPECTED))
