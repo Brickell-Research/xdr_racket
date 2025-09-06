@@ -42,8 +42,11 @@
                                                          (srcloc 'string #f #f 1 1))))
               (test-case "identifier"
                          (check-equal? (test-lexer "hello") (srcloc-token
-                                                             (token-struct 'IDENTIFIER "hello" #f #f #f #f #f)
-                                                             (srcloc 'string #f #f 1 5))))
+                                                             (token-struct 'IDENTIFIER 'hello #f #f #f #f #f)
+                                                             (srcloc 'string #f #f 1 5)))
+                         (check-equal? (test-lexer "hello_world") (srcloc-token
+                                                                   (token-struct 'IDENTIFIER 'hello_world #f #f #f #f #f)
+                                                                   (srcloc 'string #f #f 1 11))))
               (test-case "eof"
                          (check-equal? (test-lexer "") (srcloc-token (void) (srcloc 'string #f #f 1 0))))))
 

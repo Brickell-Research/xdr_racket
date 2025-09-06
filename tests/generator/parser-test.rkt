@@ -25,41 +25,41 @@
 (define (define-const-tree name value)
   `(program (xdr-config (xdr-const-expr (xdr-const-name ,name) ,value))))
 (define CONSTANT_WITH_INTEGER_VALUE "const FOO = 42")
-(define CONSTANT_WITH_INTEGER_VALUE_PARSED_EXPECTED (define-const-tree "FOO" (xdr-int-gen 42)))
+(define CONSTANT_WITH_INTEGER_VALUE_PARSED_EXPECTED (define-const-tree 'FOO (xdr-int-gen 42)))
 (define CONSTANT_WITH_DECIMAL_VALUE "const FOO = 123.45")
-(define CONSTANT_WITH_DECIMAL_VALUE_PARSED_EXPECTED (define-const-tree "FOO" (xdr-decimal-gen 123.45)))
+(define CONSTANT_WITH_DECIMAL_VALUE_PARSED_EXPECTED (define-const-tree 'FOO (xdr-decimal-gen 123.45)))
 (define CONSTANT_WITH_STRING_VALUE "const FOO = \"Hello, World!\"")
-(define CONSTANT_WITH_STRING_VALUE_PARSED_EXPECTED (define-const-tree "FOO" (xdr-string-gen "Hello, World!")))
+(define CONSTANT_WITH_STRING_VALUE_PARSED_EXPECTED (define-const-tree 'FOO (xdr-string-gen "Hello, World!")))
 
 ;; Enums
 (define EMPTY_ENUM_CONSTANT "enum EMPTY_ENUM {}")
-(define EMPTY_ENUM_CONSTANT_PARSED_EXPECTED '(program (xdr-config (xdr-enum-expr "EMPTY_ENUM"))))
+(define EMPTY_ENUM_CONSTANT_PARSED_EXPECTED '(program (xdr-config (xdr-enum-expr EMPTY_ENUM))))
 (define COLOR_ENUM_CONSTANT "enum COLOR { RED = 1, GREEN = 2, BLUE = 3 }")
 (define (enum-member-gen name value)
   `(xdr-enum-member ,name ,value))
 (define (enum-gen name members)
   `(program (xdr-config (xdr-enum-expr ,name ,@members))))
-(define COLOR_ENUM_CONSTANT_PARSED_EXPECTED (enum-gen "COLOR" (list (enum-member-gen "RED" (xdr-int-gen 1)) (enum-member-gen "GREEN" (xdr-int-gen 2)) (enum-member-gen "BLUE" (xdr-int-gen 3)))))
+(define COLOR_ENUM_CONSTANT_PARSED_EXPECTED (enum-gen 'COLOR (list (enum-member-gen 'RED (xdr-int-gen 1)) (enum-member-gen 'GREEN (xdr-int-gen 2)) (enum-member-gen 'BLUE (xdr-int-gen 3)))))
 (define ENUM_WITH_NEWLINES "enum COLOR {
   RED = 1,
   GREEN = 2,
   BLUE = 3
 }")
-(define ENUM_WITH_NEWLINES_PARSED_EXPECTED (enum-gen "COLOR" (list (enum-member-gen "RED" (xdr-int-gen 1)) (enum-member-gen "GREEN" (xdr-int-gen 2)) (enum-member-gen "BLUE" (xdr-int-gen 3)))))
+(define ENUM_WITH_NEWLINES_PARSED_EXPECTED (enum-gen 'COLOR (list (enum-member-gen 'RED (xdr-int-gen 1)) (enum-member-gen 'GREEN (xdr-int-gen 2)) (enum-member-gen 'BLUE (xdr-int-gen 3)))))
 
 ;; Typedefs
 (define (typedef-tree . args)
   `(program (xdr-config (xdr-typedef-expr ,@args))))
 (define SIMPLE_TYPEDEF "typedef uint64 Duration;")
-(define SIMPLE_TYPEDEF_PARSED_EXPECTED (typedef-tree "uint64" "Duration"))
+(define SIMPLE_TYPEDEF_PARSED_EXPECTED (typedef-tree 'uint64 'Duration))
 (define TYPEDEF_WITH_SIZE "typedef opaque UpgradeType<128>;")
-(define TYPEDEF_WITH_SIZE_PARSED_EXPECTED (typedef-tree "opaque" "UpgradeType" (xdr-int-gen 128)))
+(define TYPEDEF_WITH_SIZE_PARSED_EXPECTED (typedef-tree 'opaque 'UpgradeType (xdr-int-gen 128)))
 (define TYPEDEF_WITHOUT_SIZE "typedef TransactionEnvelope DependentTxCluster<>;")
-(define TYPEDEF_WITHOUT_SIZE_PARSED_EXPECTED (typedef-tree "TransactionEnvelope" "DependentTxCluster"))
+(define TYPEDEF_WITHOUT_SIZE_PARSED_EXPECTED (typedef-tree 'TransactionEnvelope 'DependentTxCluster))
 (define TYPEDEF_WITH_ARRAY "typedef opaque Hash[32];")
-(define TYPEDEF_WITH_ARRAY_PARSED_EXPECTED (typedef-tree "opaque" "Hash" (xdr-int-gen 32)))
+(define TYPEDEF_WITH_ARRAY_PARSED_EXPECTED (typedef-tree 'opaque 'Hash (xdr-int-gen 32)))
 (define TYPEDEF_WITH_MULTIPLE_IDENTIFIERS "typedef unsigned hyper uint64;")
-(define TYPEDEF_WITH_MULTIPLE_IDENTIFIERS_PARSED_EXPECTED (typedef-tree "unsigned" "hyper" "uint64"))
+(define TYPEDEF_WITH_MULTIPLE_IDENTIFIERS_PARSED_EXPECTED (typedef-tree 'unsigned 'hyper 'uint64))
 
 ;; Includes
 (define (include-tree file-path)
@@ -80,17 +80,17 @@
   string NAME_3;
 }")
 (define SIMPLE_STRUCT_CONSTANT_PARSED_EXPECTED
-  (struct-tree "Dog" (list
-                      (struct-member-gen "SomeType" "NAME_1")
-                      (struct-member-gen "int" "NAME_2")
-                      (struct-member-gen "string" "NAME_3"))))
+  (struct-tree 'Dog (list
+                      (struct-member-gen 'SomeType 'NAME_1)
+                      (struct-member-gen 'int 'NAME_2)
+                      (struct-member-gen 'string 'NAME_3))))
 (define EMPTY_STRUCT_CONSTANT "struct EMPTY_STRUCT {}")
-(define EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED '(program (xdr-config (xdr-struct-expr "EMPTY_STRUCT"))))
+(define EMPTY_STRUCT_CONSTANT_PARSED_EXPECTED '(program (xdr-config (xdr-struct-expr EMPTY_STRUCT))))
 (define SINGLE_LINE_STRUCT_CONSTANT "struct Dog { SomeType NAME_1; int NAME_2; string NAME_3; }")
-(define SINGLE_LINE_STRUCT_CONSTANT_PARSED_EXPECTED (struct-tree "Dog" (list
-                                                                   (struct-member-gen "SomeType" "NAME_1")
-                                                                   (struct-member-gen "int" "NAME_2")
-                                                                   (struct-member-gen "string" "NAME_3"))))
+(define SINGLE_LINE_STRUCT_CONSTANT_PARSED_EXPECTED (struct-tree 'Dog (list
+                                                                        (struct-member-gen 'SomeType 'NAME_1)
+                                                                        (struct-member-gen 'int 'NAME_2)
+                                                                        (struct-member-gen 'string 'NAME_3))))
 
 
 (define parser-tests

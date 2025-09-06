@@ -8,7 +8,7 @@ xdr-const-expr : /"const" xdr-const-name /"=" xdr-any-value
 xdr-const-name : IDENTIFIER
 
 xdr-enum-expr : /"enum" IDENTIFIER /"{" xdr-enum-member* (/"," xdr-enum-member)* /"}"
-               | /"enum" IDENTIFIER /"{" xdr-enum-member* (/"," xdr-enum-member)* /"}"
+              | /"enum" IDENTIFIER /"{" xdr-enum-member* (/"," xdr-enum-member)* /"}"
 xdr-enum-member : IDENTIFIER /"=" xdr-any-value
 
 xdr-struct-expr : /"struct" IDENTIFIER /"{" xdr-struct-member-line* /"}"

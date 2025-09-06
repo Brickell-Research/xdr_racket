@@ -29,7 +29,7 @@
    [digits (token 'INTEGER (string->number lexeme))]
    [(:or (:seq (:? digits) "." digits)
          (:seq digits ".")) (token 'DECIMAL (string->number lexeme))]
-   [(:seq (:or alphabetic "_") (:* (:or alphabetic numeric "_"))) (token 'IDENTIFIER lexeme)]
+   [(:seq (:or alphabetic "_") (:* (:or alphabetic numeric "_"))) (token 'IDENTIFIER (string->symbol lexeme))]
    [(eof)      (void)]))
 
 (provide basic-lexer)
