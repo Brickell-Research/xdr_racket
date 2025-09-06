@@ -38,11 +38,11 @@
                                                                         (srcloc 'string #f #f 1 14))))
               (test-case "keyword"
                          (check-equal? (test-lexer "const") (srcloc-token
-                                                             (token-struct 'KEYWORD "const" #f #f #f #f #f)
+                                                             (token-struct 'const "const" #f #f #f #f #f)
                                                              (srcloc 'string #f #f 1 5))))
               (test-case "operator"
                          (check-equal? (test-lexer "=") (srcloc-token
-                                                         (token-struct 'OPERATOR "=" #f #f #f #f #f)
+                                                         (token-struct '= "=" #f #f #f #f #f)
                                                          (srcloc 'string #f #f 1 1))))
               (test-case "identifier"
                          (check-equal? (test-lexer "hello") (srcloc-token
