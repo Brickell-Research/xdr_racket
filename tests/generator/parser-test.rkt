@@ -1,9 +1,10 @@
 #lang br
-(require xdr/generator/parser xdr/generator/tokenizer brag/support)
+(require brag/support)
 
 (require rackunit
-         rackunit/text-ui)
-(require "../../xdr/generator/parser.rkt")
+         rackunit/text-ui
+         "../../xdr/generator/parser.rkt"
+         "../../xdr/generator/tokenizer.rkt")
 
 ;; Helper functions
 (define (xdr-any-value-gen value)
