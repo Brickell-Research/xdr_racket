@@ -44,4 +44,6 @@ The process for leveraging XDR (@hyperlink["https://tools.ietf.org/html/rfc4506"
 
 @include-section["xdr_types.scrbl"]
 
+@include-section["xdr_in_the_wild.scrbl"]
+
 @include-section["license.scrbl"]
